@@ -27,11 +27,15 @@ func main() {
 
 	// Goroutine em segundo plano gerando emergências
 	go func() {
-		time.Sleep(3 * time.Second)
-		chPrioridade <- "Ambulância SAMU 192"
+		intervalo := 7 * time.Second
+		veiculos := []string{"Ambulância SAMU 192", "Carro de Bombeiros", "Viatura Policial"}
+		i := 0
 
-		time.Sleep(10 * time.Second)
-		chPrioridade <- "Carro de Bombeiros"
+		for {
+			time.Sleep(intervalo)
+			chPrioridade <- veiculos[i%len(veiculos)]
+			i++
+		}
 	}()
 
 	// Ciclo normal das cores
